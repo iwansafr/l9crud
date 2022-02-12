@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function index()
+    {
+        $posts = Post::paginate(12);
+        return view('admin.posts.index',compact('posts'));
+    }
     public function create(PostRequest $request)
     {
         $post = new Post();

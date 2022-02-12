@@ -25,9 +25,7 @@ Route::prefix('/admin')->middleware('auth')->group(function(){
         return view('admin.main');
     });
     Route::prefix('/post')->group(function(){
-        Route::get('/',function(){
-            return view('admin.posts.index');
-        });
+        Route::get('/',[PostController::class, 'index']);
         Route::get('add',function(){
             return view('admin.posts.edit');
         });
