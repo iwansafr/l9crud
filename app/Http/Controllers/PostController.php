@@ -8,10 +8,16 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::paginate(1);
-        return view('admin.posts.index',compact('posts'));
+        $keyword = $request->input('keyword');
+        if(!empty($keyword))
+        {
+            $posts = Post::where('title','like','%'.$keyword.'%')->paginate(1);
+        }else{
+            $posts = Post::paginate(1);
+        }
+        return view('admin.posts.index',compact('posts','keyword'));
     }
     public function create(PostRequest $request)
     {
