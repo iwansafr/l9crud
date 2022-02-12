@@ -44,7 +44,7 @@
                                     </div>
                                     <form action="{{ route('auth.login') }}" method="post">
                                       @if (session('message'))
-                                          <div class="alert alert-danger">
+                                          <div class="alert alert-danger text-danger">
                                               {{ session('message') }}
                                           </div>
                                       @endif

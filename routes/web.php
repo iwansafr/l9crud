@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,10 +24,16 @@ Route::prefix('/admin')->middleware('auth')->group(function(){
     Route::get('/',function(){
         return view('admin.main');
     });
-
-    Route::get('/post',function(){
-        return view('admin.posts.index');
+    Route::prefix('/post')->group(function(){
+        Route::get('/',function(){
+            return view('admin.posts.index');
+        });
+        Route::get('add',function(){
+            return view('admin.posts.edit');
+        });
+        Route::post('create',[PostController::class,'create']);
     });
+    
 });
 
 Route::get('/login',function(){

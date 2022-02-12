@@ -21,9 +21,9 @@
 
 			<main class="content">
 				<div class="container-fluid p-0">
-
 					<h1 class="h3 mb-3">@yield('meta_title')</h1>
 				</div>
+				@yield('content')
 			</main>
 
 			<footer class="footer">
