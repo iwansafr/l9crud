@@ -3,7 +3,7 @@
     Create New Post
 @endsection
 @section('content')
-    <form action="{{ empty($post) ? url('admin/post/create') : url('admin/post/update') }}" method="post">
+    <form action="{{ empty($post) ? url('admin/post/create') : url('admin/post/update/'.$post['id']) }}" method="post">
       @csrf
       <div class="row">
         <div class="col-12 col-lg-6">
