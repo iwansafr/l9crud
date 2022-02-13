@@ -37,7 +37,6 @@ class PostController extends Controller
     {
         if(!empty($id)){
             $Post = new Post();
-            session()->forget('post');
             if($Post->updateOrCreate(['id'=>$id],$request->except(['_token']))){
                 return redirect('admin/post/edit/'.$id)->with('message',['msg'=>'Post Saved Successfully','alert'=>'success']);
             }else{
@@ -45,4 +44,17 @@ class PostController extends Controller
             }
         }
     }
+    public function delete($id)
+    {
+        if(!empty($id))
+        {
+            $post = Post::find($id);
+            if ($post->delete()) {
+                return redirect('admin/post/')->with('message', ['msg' => 'Post Deleted Successfully', 'alert' => 'success']);
+            } else {
+                return redirect('admin/post/')->with('message', ['msg' => 'Post Failed to Delete', 'alert' => 'danger']);
+            }
+        }
+    }
+
 }

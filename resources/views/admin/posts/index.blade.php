@@ -9,6 +9,11 @@
 			<input type="text" value="{{ $keyword }}" placeholder="keyword" name="keyword" class="form-control">
 		</form>
 	</div>
+    @if (!empty(session('message')))
+    <div class="alert text-{{ session('message')['alert'] }}">
+        {{ session('message')['msg'] }}
+    </div>
+    @endif
     <table class="table table-hover">
         <thead>
             <th>NO</th>
@@ -21,7 +26,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->title }}</td>
-                        <td><a href="" class="btn btn-danger">Delete</a> | <a href="{{ url('admin/post/edit/'.$item->id) }}" class="btn btn-primary">Edit</a></td>
+                        <td><a href="{{ url('admin/post/delete/'.$item->id) }}" onclick="return confirm('are you sure delete {{ $item->title }}')" class="btn btn-danger">Delete</a> | <a href="{{ url('admin/post/edit/'.$item->id) }}" class="btn btn-primary">Edit</a></td>
                     </tr>
                 @endforeach
             @endif
