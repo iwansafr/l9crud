@@ -29,7 +29,9 @@ Route::prefix('/admin')->middleware('auth')->group(function(){
         Route::get('add',function(){
             return view('admin.posts.edit');
         });
+        Route::get('edit/{id}',[PostController::class,'edit']);
         Route::post('create',[PostController::class,'create']);
+        Route::post('update',[PostController::class,'update']);
     });
     
 });

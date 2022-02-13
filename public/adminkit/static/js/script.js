@@ -1,2 +1,3 @@
-let a = document.querySelector('a[href="'+_URL+'"]')
-a.parentNode.classList.add('active')
+const a = document.querySelector('a[href="'+_URL+'"]')
+const parentNode  = a.parentNode
+parentNode.classList.add('active')

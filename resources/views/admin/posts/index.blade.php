@@ -1,25 +1,4 @@
 @extends('admin.dashboard')
-@push('css')
-    <style>
-        ul.pagination {
-            display: inline-block;
-            padding: 0;
-            margin: 0;
-        }
-
-        ul.pagination li {
-            display: inline;
-        }
-
-        ul.pagination li a {
-            color: black;
-            float: left;
-            padding: 8px 16px;
-            text-decoration: none;
-        }
-
-    </style>
-@endpush
 @section('meta_title')
     Menu Posts
 @endsection
