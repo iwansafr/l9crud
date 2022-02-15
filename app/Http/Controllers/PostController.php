@@ -16,19 +16,18 @@ class PostController extends Controller
         {
             $posts = Post::where('title','like','%'.$keyword.'%')->orderByDesc('id')->paginate(12);
         }else{
-            $posts = Post::orderByDesc('id')->paginate(2);
+            $posts = Post::orderByDesc('id')->paginate(12);
         }
         return view('admin.posts.index',compact('posts','keyword'));
     }
     public function create(PostRequest $request)
     {
-        $post = new Post();
-        if($post->create($request->except(['_token']))){
+        if($post = Post::create($request->except(['_token']))){
             if(!empty($request->file('image')))
             {
                 $path = $request->file('image')->store('public/posts');
                 $post->image = $path;
-                $post->update();
+                $post->save();
             }
             return redirect('admin/post/add')->with('message',['msg'=>'Post Added Successfully','alert'=>'success']);
         }else{
