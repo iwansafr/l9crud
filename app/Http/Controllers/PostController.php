@@ -63,6 +63,10 @@ class PostController extends Controller
         if(!empty($id))
         {
             $post = Post::find($id);
+            if(!empty($post->image))
+            {
+                Storage::delete($post->image);
+            }
             if ($post->delete()) {
                 return redirect('admin/post/')->with('message', ['msg' => 'Post Deleted Successfully', 'alert' => 'success']);
             } else {
