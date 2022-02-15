@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -23,6 +24,12 @@ class PostController extends Controller
     {
         $post = new Post();
         if($post->create($request->except(['_token']))){
+            if(!empty($request->file('image')))
+            {
+                $path = $request->file('image')->store('public/posts');
+                $post->image = $path;
+                $post->update();
+            }
             return redirect('admin/post/add')->with('message',['msg'=>'Post Added Successfully','alert'=>'success']);
         }else{
             return redirect('admin/post/add')->with('message',['msg'=>'Post Failed to Added','alert'=>'danger']);
@@ -38,6 +45,14 @@ class PostController extends Controller
         if(!empty($id)){
             $Post = new Post();
             if($Post->updateOrCreate(['id'=>$id],$request->except(['_token']))){
+                if(!empty($request->file('image')))
+                {
+                    $post = Post::find($id);
+                    Storage::delete($post->image);
+                    $path = $request->file('image')->store('public/posts');
+                    $post->image = $path;
+                    $post->save();
+                }
                 return redirect('admin/post/edit/'.$id)->with('message',['msg'=>'Post Saved Successfully','alert'=>'success']);
             }else{
                 return redirect('admin/post/edit/'.$id)->with('message',['msg'=>'Post Failed to Save','alert'=>'danger']);

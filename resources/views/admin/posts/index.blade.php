@@ -18,6 +18,7 @@
         <thead>
             <th>NO</th>
             <th>TITLE</th>
+            <th>IMAGE</th>
             <th>ACTION</th>
         </thead>
         <tbody>
@@ -26,6 +27,9 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->title }}</td>
+                        <td>
+                            <img src="{{ Storage::url($item->image) }}" class="img img-fluid" style="max-height: 50px;" alt="">
+                        </td>
                         <td><a href="{{ url('admin/post/delete/'.$item->id) }}" onclick="return confirm('are you sure delete {{ $item->title }}')" class="btn btn-danger">Delete</a> | <a href="{{ url('admin/post/edit/'.$item->id) }}" class="btn btn-primary">Edit</a></td>
                     </tr>
                 @endforeach
